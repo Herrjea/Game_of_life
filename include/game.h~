@@ -1,0 +1,82 @@
+/*
+@file
+@brief	Clase que simula el Game of life
+*/
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+/*
+@brief	Clase que alberga el tablero con una matriz de booleanos
+*/
+class Juego{
+
+	bool ** mapa;
+	int alto;
+	int ancho;
+
+	public:
+
+		/*
+		@brief Construye un tablero de tamaño @a filas x @a columnas
+		@param tamanyo 	número de filas y de columnas del tablero
+		*/
+		Juego( int );
+
+		/*
+		@brief Construye un tablero de tamaño @a filas x @a columnas
+		@param tamanyo_x 	número de filas del tablero
+		@param tamanyo_y 	número de columnas del tablero
+		*/
+		Juego( int, int );
+
+		/*
+		@brief Construye un tablero de tamaño @a filas x @a columnas
+		@param tamanyo_x 	número de filas del tablero
+		@param tamanyo_y 	número de columnas del tablero
+		*/
+		Juego( const Juego & );
+
+		Juego( string );
+
+		~Juego();
+
+		int GetAlto() const;
+
+		int GetAncho() const;
+
+		bool Get( int, int ) const;
+
+		void Set( int, int, bool );
+
+		void SetLimite( bool );
+
+		void SetAlAzar( int );
+
+		bool Dentro( int, int );
+
+		int Vecinos( int, int );
+
+		void Generacion();
+
+		void GeneracionB();
+
+		void Rotar();
+
+		void Insertar( Juego, int, int );
+
+		void Insertar( Juego, int, int, int );
+
+		void Insertar( string, int, int );
+
+		void Insertar( string, int, int, int );
+
+		Juego & operator = ( const Juego & );
+
+		void Mostrar();
+
+		void Destruir();
+};
