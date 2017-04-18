@@ -277,22 +277,22 @@ void GoL::insert( string type, int x, int y, int rotations ){
 	}
 }
 
-GoL & GoL::operator = ( const GoL & referencia ){
+GoL & GoL::operator = ( const GoL & ref ){
 
-	if ( this != &referencia ){
+	if ( this != &ref ){
 
 		if ( board != 0 )
 			clear();
 
-		height = referencia.get_height();
-		width = referencia.get_width();
+		height = ref.get_height();
+		width = ref.get_width();
 		board = new bool*[height];
 		for ( int i = 0; i < height; i++ )
 			board[i] = new bool[width];
 
 		for ( int i = 0; i < height; i++ )
 			for ( int j = 0; j < width; j++ )
-				set( i, j, referencia.get(i,j) );
+				set( i, j, ref.get(i,j) );
 
 	}
 
@@ -305,15 +305,15 @@ void GoL::print(){
 
 	for ( int i = 0; i < height; i++ ){
 		for ( int j = 0; j < width; j++ )
-			board[i][j] ? cout << live : cout << dead;
+			cout << ( board[i][j] ? live : dead );
 		cout << endl;
 	}
 }
 
 void GoL::clear(){
 
-	for ( int i = 0; i < height; ++i ){
-		delete [] board[i];/*cout<<i<<endl;*/}
+	for ( int i = 0; i < height; ++i )
+		delete [] board[i];
 	delete [] board;
 
 	height = width = 0;
