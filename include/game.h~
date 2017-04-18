@@ -10,6 +10,10 @@ const string
 	glidergun = "glidergun",
 	switchengine = "switchengine";
 
+const bool
+	live = true,
+	dead = false;
+
 
 class GoL{
 
