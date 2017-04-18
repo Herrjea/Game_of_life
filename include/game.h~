@@ -1,82 +1,69 @@
-/*
-@file
-@brief	Clase que simula el Game of life
-*/
-
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 
 using namespace std;
 
-/*
-@brief	Clase que alberga el tablero con una matriz de booleanos
-*/
-class Juego{
 
-	bool ** mapa;
-	int alto;
-	int ancho;
+const string
+	glider = "glider",
+	glidergun = "glidergun",
+	switchengine = "switchengine";
+
+
+class GoL{
+
+	bool ** board;
+	int height;
+	int width;
 
 	public:
 
-		/*
-		@brief Construye un tablero de tamaño @a filas x @a columnas
-		@param tamanyo 	número de filas y de columnas del tablero
-		*/
-		Juego( int );
+		GoL( int );
 
-		/*
-		@brief Construye un tablero de tamaño @a filas x @a columnas
-		@param tamanyo_x 	número de filas del tablero
-		@param tamanyo_y 	número de columnas del tablero
-		*/
-		Juego( int, int );
+		GoL( int, int );
 
-		/*
-		@brief Construye un tablero de tamaño @a filas x @a columnas
-		@param tamanyo_x 	número de filas del tablero
-		@param tamanyo_y 	número de columnas del tablero
-		*/
-		Juego( const Juego & );
+		GoL( const GoL & );
 
-		Juego( string );
+		GoL( string );
 
-		~Juego();
+		~GoL();
 
-		int GetAlto() const;
+		int get_height() const;
 
-		int GetAncho() const;
+		int get_width() const;
 
-		bool Get( int, int ) const;
+		bool get( int, int ) const;
 
-		void Set( int, int, bool );
+		void set( int, int, bool );
 
-		void SetLimite( bool );
+		void set_border( bool );
 
-		void SetAlAzar( int );
+		void set_at_random( int );
 
-		bool Dentro( int, int );
+		int living_neighbors( int, int );
 
-		int Vecinos( int, int );
+		void generation();
 
-		void Generacion();
+		void generation_alt();
 
-		void GeneracionB();
+		void rotate();
 
-		void Rotar();
+		void insert( GoL, int, int );
 
-		void Insertar( Juego, int, int );
+		void insert( GoL, int, int, int );
 
-		void Insertar( Juego, int, int, int );
+		void insert( string, int, int );
 
-		void Insertar( string, int, int );
+		void insert( string, int, int, int );
 
-		void Insertar( string, int, int, int );
+		GoL & operator = ( const GoL & );
 
-		Juego & operator = ( const Juego & );
+		void print();
 
-		void Mostrar();
+		void clear();
 
-		void Destruir();
+	private:
+
+		bool inside( int, int );
 };

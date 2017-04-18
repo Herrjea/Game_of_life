@@ -8,24 +8,29 @@ using namespace std;
 
 int main(){
 
-//	const long int VELOCIDAD = 50000; // Nanosegundos que dura cada fotograma
-	Juego juego( 40, 100 );
-	char salida = '\n';
-	Juego gun( "glidergun" );
+	// ns of each frame.
+	// Not taken into account in not possitive
+	const long int nsf = 20000;
+	GoL board( 20, 70 );
+	char exit = '\n';
 
-	juego.Insertar( gun, 0, 20 ); // (+30,+30)
-	juego.Insertar( gun, 30, 50, 2 );
+	board.insert( glidergun, 0, 20 ); // (+30,+30)
+	board.insert( glidergun, 30, 50, 2 ); // DDDD=
+	board.set_border( true );
 
-//	for ( int i = 1; i < 68; i++ ) juego.Set(10,i,true);
+//	for ( int i = 1; i < 68; i++ ) board.set( 10, i, true );
 
-//	juego.SetAlAzar( 170 );
+//	board.set_at_random( 170 );
 
-	while( salida == '\n' ){
+	while( exit == '\n' ){
 		system( "clear" );
-		juego.Mostrar();
-		juego.Generacion();
-		cin.get(salida);
-		//usleep(VELOCIDAD);
+		board.print();
+		board.generation();
+		if ( nsf < 1 )
+			cin.get( exit );
+		else
+			usleep( nsf );
+		
 	}
 
 }

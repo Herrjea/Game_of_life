@@ -5,57 +5,69 @@
 using namespace std;
 
 
-class Juego{
+const string
+	glider = "glider",
+	glidergun = "glidergun",
+	switchengine = "switchengine";
 
-	bool ** mapa;
-	int alto;
-	int ancho;
+const bool
+	live = true,
+	dead = false;
+
+
+class GoL{
+
+	bool ** board;
+	int height;
+	int width;
 
 	public:
 
-		Juego( int );
+		GoL( int );
 
-		Juego( int, int );
+		GoL( int, int );
 
-		Juego( const Juego & );
+		GoL( const GoL & );
 
-		Juego( string );
+		GoL( string );
 
-		~Juego();
+		~GoL();
 
-		int GetAlto() const;
+		int get_height() const;
 
-		int GetAncho() const;
+		int get_width() const;
 
-		bool Get( int, int ) const;
+		bool get( int, int ) const;
 
-		void Set( int, int, bool );
+		void set( int, int, bool );
 
-		void SetLimite( bool );
+		void set_border( bool );
 
-		void SetAlAzar( int );
+		void set_at_random( int );
 
-		bool Dentro( int, int );
+		int living_neighbors( int, int );
 
-		int Vecinos( int, int );
+		void generation();
 
-		void Generacion();
+		void generation_alt();
 
-		void GeneracionB();
+		void rotate();
 
-		void Rotar();
+		void insert( GoL, int, int );
 
-		void Insertar( Juego, int, int );
+		void insert( GoL, int, int, int );
 
-		void Insertar( Juego, int, int, int );
+		void insert( string, int, int );
 
-		void Insertar( string, int, int );
+		void insert( string, int, int, int );
 
-		void Insertar( string, int, int, int );
+		GoL & operator = ( const GoL & );
 
-		Juego & operator = ( const Juego & );
+		void print();
 
-		void Mostrar();
+		void clear();
 
-		void Destruir();
+	private:
+
+		bool inside( int, int );
 };

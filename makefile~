@@ -23,7 +23,3 @@ $(LIB)/libgame.a : $(OBJ)/game.o
 $(OBJ)/game.o : $(SRC)/game.cpp $(INC)/game.h
 	$(CXX) $(CPPFLAGS) -o $@ $<
 
-# Documentación
-
-documentacion:
-	doxygen doc/doxys/Doxyfile

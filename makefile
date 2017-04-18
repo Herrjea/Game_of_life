@@ -15,7 +15,7 @@ $(BIN)/main : $(OBJ)/main.o $(LIB)/libgame.a
 $(OBJ)/main.o : $(SRC)/main.cpp $(INC)/game.h
 	$(CXX) $(CPPFLAGS) -o $@ $<
 
-# Bibliotecas
+# Libraries
 
 $(LIB)/libgame.a : $(OBJ)/game.o
 	ar -rvs $@ $^
@@ -23,3 +23,7 @@ $(LIB)/libgame.a : $(OBJ)/game.o
 $(OBJ)/game.o : $(SRC)/game.cpp $(INC)/game.h
 	$(CXX) $(CPPFLAGS) -o $@ $<
 
+# Clean
+
+clean:
+	rm bin/* lib/* obj/*

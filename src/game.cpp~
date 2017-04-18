@@ -6,299 +6,315 @@
 using namespace std;
 
 
-Juego::Juego( int tamanyo )
-	:Juego( tamanyo, tamanyo ){
+GoL::GoL( int size )
+	:GoL( size, size ){
 }
 
-Juego::Juego( int tamanyo_x, int tamanyo_y ){
+GoL::GoL( int size_x, int size_y ){
 
-	alto = tamanyo_x;
-	ancho = tamanyo_y;
+	height = size_x;
+	width = size_y;
 
-	mapa = new bool*[alto];
+	board = new bool*[height];
 
-	for ( int i = 0; i < alto; i++ )
-		mapa[i] = new bool[ancho];
+	for ( int i = 0; i < height; i++ )
+		board[i] = new bool[width];
 
-	for ( int i = 0; i < alto; i++ )
-		for ( int j = 0; j < ancho; j++ )
-			mapa[i][j] = false;
+	for ( int i = 0; i < height; i++ )
+		for ( int j = 0; j < width; j++ )
+			board[i][j] = false;
 }
 
-Juego::Juego( const Juego & referencia ){
+GoL::GoL( const GoL & ref ){
 
-	alto = referencia.GetAlto();
-	ancho = referencia.GetAncho();
-	mapa = new bool*[alto];
-	for ( int i = 0; i < alto; i++ )
-		mapa[i] = new bool[ancho];
+	height = ref.get_height();
+	width = ref.get_width();
+	board = new bool*[height];
+	for ( int i = 0; i < height; i++ )
+		board[i] = new bool[width];
 
-	for ( int i = 0; i < alto; i++ )
-		for ( int j = 0; j < ancho; j++ )
-			Set( i, j, referencia.Get(i,j) );
+	for ( int i = 0; i < height; i++ )
+		for ( int j = 0; j < width; j++ )
+			set( i, j, ref.get(i,j) );
 }
 
-Juego::Juego( string tipo ){
+GoL::GoL( string type ){
 
-	if ( tipo == "glider" ){
+	if ( type == "glider" ){
 
-		alto = ancho = 3;
-		mapa = new bool*[alto];
-		for ( int i = 0; i < alto; i++ )
-			mapa[i] = new bool[ancho];
+		height = width = 3;
+		board = new bool*[height];
+		for ( int i = 0; i < height; i++ )
+			board[i] = new bool[width];
 
-		Set(0,0,true);
-		Set(1,0,true);
-		Set(2,0,true);
-		Set(2,1,true);
-		Set(1,2,true);
+		set(0,0,true);
+		set(1,0,true);
+		set(2,0,true);
+		set(2,1,true);
+		set(1,2,true);
 
-	}else if ( tipo == "glidergun" ){
+	}else if ( type == "glidergun" ){
 
-		alto = 9;
-		ancho = 36;
-		mapa = new bool*[alto];
-		for ( int i = 0; i < alto; i++ )
-			mapa[i] = new bool[ancho];
+		height = 9;
+		width = 36;
+		board = new bool*[height];
+		for ( int i = 0; i < height; i++ )
+			board[i] = new bool[width];
 
-		Set(4,0,true);
-		Set(5,0,true);
-		Set(4,1,true);
-		Set(5,1,true);
-		Set(2,34,true);
-		Set(3,34,true);
-		Set(2,35,true);
-		Set(3,35,true);
-		Set(4,10,true);
-		Set(5,10,true);
-		Set(6,10,true);
-		Set(3,11,true);
-		Set(7,11,true);
-		Set(2,12,true);
-		Set(8,12,true);
-		Set(2,13,true);
-		Set(8,13,true);
-		Set(5,14,true);
-		Set(3,15,true);
-		Set(7,15,true);
-		Set(4,16,true);
-		Set(5,16,true);
-		Set(6,16,true);
-		Set(5,17,true);
-		Set(2,20,true);
-		Set(3,20,true);
-		Set(4,20,true);
-		Set(2,21,true);
-		Set(3,21,true);
-		Set(4,21,true);
-		Set(1,22,true);
-		Set(5,22,true);
-		Set(0,24,true);
-		Set(1,24,true);
-		Set(5,24,true);
-		Set(6,24,true);
+		set(4,0,true);
+		set(5,0,true);
+		set(4,1,true);
+		set(5,1,true);
+		set(2,34,true);
+		set(3,34,true);
+		set(2,35,true);
+		set(3,35,true);
+		set(4,10,true);
+		set(5,10,true);
+		set(6,10,true);
+		set(3,11,true);
+		set(7,11,true);
+		set(2,12,true);
+		set(8,12,true);
+		set(2,13,true);
+		set(8,13,true);
+		set(5,14,true);
+		set(3,15,true);
+		set(7,15,true);
+		set(4,16,true);
+		set(5,16,true);
+		set(6,16,true);
+		set(5,17,true);
+		set(2,20,true);
+		set(3,20,true);
+		set(4,20,true);
+		set(2,21,true);
+		set(3,21,true);
+		set(4,21,true);
+		set(1,22,true);
+		set(5,22,true);
+		set(0,24,true);
+		set(1,24,true);
+		set(5,24,true);
+		set(6,24,true);
 
-	}else if ( tipo == "switchengine" ){
+	}else if ( type == "switchengine" ){
 
-		alto = 6;
-		ancho = 8;
-		mapa = new bool*[alto];
-		for ( int i = 0; i < alto; i++ )
-			mapa[i] = new bool[ancho];
+		height = 6;
+		width = 8;
+		board = new bool*[height];
+		for ( int i = 0; i < height; i++ )
+			board[i] = new bool[width];
 
-		Set(2,1,true);
-		Set(1,2,true);
-		Set(3,2,true);
-		Set(1,4,true);
-		Set(4,4,true);
-		Set(3,5,true);
-		Set(4,5,true);
-		Set(4,6,true);
+		set(2,1,true);
+		set(1,2,true);
+		set(3,2,true);
+		set(1,4,true);
+		set(4,4,true);
+		set(3,5,true);
+		set(4,5,true);
+		set(4,6,true);
 
 	}else{
 
-		mapa = 0;
-		alto = ancho = 0;
+		board = 0;
+		height = width = 0;
+		cout << "No known type " << type << endl;
 	}
 }
 
-Juego::~Juego(){
+GoL::~GoL(){
 
-	Destruir();
+	clear();
 }
 
-int Juego::GetAlto() const{
+int GoL::get_height() const{
 
-	return alto;
+	return height;
 }
 
-int Juego::GetAncho() const{
+int GoL::get_width() const{
 
-	return ancho;
+	return width;
 }
 
-bool Juego::Get( int x, int y ) const{
+bool GoL::get( int x, int y ) const{
 
-	return mapa[x][y];
+	return board[x][y];
 }
 
-void Juego::Set( int x, int y, bool valor ){
+void GoL::set( int x, int y, bool state ){
 
-	if ( x >= 0 && y >= 0 && x < alto && y < ancho )
-		mapa[x][y] = valor;
+	if ( inside(x,y) )
+		board[x][y] = state;
 }
 
-void Juego::SetAlAzar( int iteraciones ){
+void GoL::set_at_random( int rep ){
 
 	int x, y;
 	time_t t;
 	srand((int) time(&t));
 
-	for ( int i = 0; i < iteraciones; i++ ){
+	for ( int i = 0; i < rep; i++ ){
 
-		// Repite hasta dar con una célula muerta
+		// Try untill reaching a dead cell
 		do{
-			x = rand() % alto;
-			y = rand() % ancho;
-		}while( mapa[x][y] );
+			x = rand() % height;
+			y = rand() % width;
+		}while( board[x][y] );
 
-		mapa[x][y] = true;
+		board[x][y] = true;
 	}
 }
 
-bool Juego::Dentro( int x, int y ){
+void GoL::set_border( bool state ){
 
-	bool dentro = ( x >= 0 && y >= 0 && x < alto && y < ancho ) ? true : false;
-	return dentro;
+	// Upper and bottom borders
+	for ( int i = 0; i < width; i++ ){
+		set( 0, i, state );
+		set( height - 1, i, state );
+	}
+	// Left and right borders
+	for ( int i = 0; i < height; i++ ){
+		set( i, 0, state );
+		set( i, width - 1, state );
+	}
 }
 
-int Juego::Vecinos( int x, int y ){
+bool GoL::inside( int x, int y ){
 
-	int vecinos = 0;
+	return x >= 0 && y >= 0 && x < height && y < width;
+}
+
+int GoL::living_neighbors( int x, int y ){
+
+	int neighbors = 0;
 
 	for ( int i = x - 1; i <= x + 1; i++ )
 		for ( int j = y - 1; j <= y + 1; j++ )
-			if ( Dentro(i,j) && mapa[i][j] )
-				vecinos++;
-	if ( mapa[x][y] )
-		vecinos--;
+			if ( inside(i,j) && board[i][j] )
+				neighbors++;
+	if ( board[x][y] )
+		neighbors--;
 
-	return vecinos;
+	return neighbors;
 }
 
-void Juego::Generacion(){
+void GoL::generation(){
 
-	int vecinos_minimos = 2, vecinos_maximos = 3;
-	Juego siguiente( alto, ancho );
+// Cambiar esto. Qué cosa tan poco eficiente D=
 
-	for ( int i = 0; i < alto; i++ )
-		for ( int j = 0; j < ancho; j++ ){
-			int vecinos = Vecinos(i,j);
-			if ( ( Get(i,j) && vecinos >= vecinos_minimos && vecinos <= vecinos_maximos ) || ( !Get(i,j) && vecinos == vecinos_maximos ) )
-				siguiente.Set(i,j,true);
+	int min_neighbors = 2, max_neighbors = 3;
+	GoL next( height, width );
+
+	for ( int i = 0; i < height; i++ )
+		for ( int j = 0; j < width; j++ ){
+			int neighbors = living_neighbors(i,j);
+			if ( ( get(i,j) && neighbors >= min_neighbors && neighbors <= max_neighbors ) || ( !get(i,j) && neighbors == max_neighbors ) )
+				next.set(i,j,true);
 		}
 
-	for ( int i = 0; i < alto; i++ )
-		for ( int j = 0; j < ancho; j++ )
-			Set(i,j,siguiente.Get(i,j));
+	for ( int i = 0; i < height; i++ )
+		for ( int j = 0; j < width; j++ )
+			set(i,j,next.get(i,j));
 }
 
-void Juego::GeneracionB(){
+void GoL::generation_alt(){
 
-	int vecinos_minimos = 2, vecinos_maximos = 3;
+	int min_neighbors = 2, max_neighbors = 3;
 
-	for ( int i = 0; i < alto; i++ )
-		for ( int j = 0; j < ancho; j++ ){
-			int vecinos = Vecinos(i,j);
-			( ( vecinos >= vecinos_minimos && vecinos < vecinos_maximos ) || vecinos == vecinos_maximos ) ? Set(i,j,true) : Set(i,j,false);
+	for ( int i = 0; i < height; i++ )
+		for ( int j = 0; j < width; j++ ){
+			int neighbors = living_neighbors(i,j);
+			( ( neighbors >= min_neighbors && neighbors < max_neighbors ) || neighbors == max_neighbors ) ? set(i,j,true) : set(i,j,false);
 		}
 }
 
-void Juego::Rotar(){
+void GoL::rotate(){
 
-	Juego nuevo( ancho, alto );
+	GoL next( width, height );
 
-		for ( int i = 0; i < alto; i++ )
-			for ( int j = 0; j < ancho; j++ )
-				nuevo.Set( j, alto - i - 1, Get( i, j ) );
+		for ( int i = 0; i < height; i++ )
+			for ( int j = 0; j < width; j++ )
+				next.set( j, height - i - 1, get( i, j ) );
 
-	*this = nuevo;
+	*this = next;
 }
 
-void Juego::Insertar( Juego patron, int pos_x, int pos_y ){
+void GoL::insert( GoL pattern, int x, int y ){
 
-	Insertar( patron, pos_x, pos_y, 0 );
+	insert( pattern, x, y, 0 );
 }
 
-void Juego::Insertar( Juego patron, int pos_x, int pos_y, int rotaciones ){
+void GoL::insert( GoL pattern, int x, int y, int rotations ){
 
-	if ( pos_x >= 0 && pos_y >= 0 && pos_x + patron.GetAlto() < alto && pos_y + patron.GetAncho() < ancho ){
+	if ( x >= 0 && y >= 0 && x + pattern.get_height() < height && y + pattern.get_width() < width ){
 
-		for ( int i = 0; i < rotaciones % 4; i++ )
-			patron.Rotar();
+		for ( int i = 0; i < rotations % 4; i++ )
+			pattern.rotate();
 
-		for ( int lec_i = 0, esc_i = pos_x; lec_i < patron.GetAlto(); lec_i++, esc_i++ )
-			for ( int lec_j = 0, esc_j = pos_y; lec_j < patron.GetAncho(); lec_j++, esc_j++ )
-				Set( esc_i, esc_j, patron.Get( lec_i, lec_j ) );
+		for ( int rd_i = 0, wr_i = x; rd_i < pattern.get_height(); rd_i++, wr_i++ )
+			for ( int rd_j = 0, wr_j = y; rd_j < pattern.get_width(); rd_j++, wr_j++ )
+				set( wr_i, wr_j, pattern.get( rd_i, rd_j ) );
 	}
 }
 
-void Juego::Insertar( string tipo, int pos_x, int pos_y ){
+void GoL::insert( string type, int x, int y ){
 
-	if ( tipo == "glider" || tipo == "glidergun" || tipo == "switchengine" ){
+	if ( type == "glider" || type == "glidergun" || type == "switchengine" ){
 
-		Juego patron(tipo);
-		Insertar( patron, pos_x, pos_y, 0 );
+		GoL pattern( type );
+		insert( pattern, x, y, 0 );
 	}
 }
 
-void Juego::Insertar( string tipo, int pos_x, int pos_y, int rotaciones ){
+void GoL::insert( string tipo, int pos_x, int pos_y, int rotaciones ){
 
 	if ( tipo == "glider" || tipo == "glidergun" ){
 
-		Juego patron(tipo);
-		Insertar( patron, pos_x, pos_y, rotaciones );
+		GoL patron(tipo);
+		insert( patron, pos_x, pos_y, rotaciones );
 	}
 }
 
-Juego & Juego::operator = ( const Juego & referencia ){
+GoL & GoL::operator = ( const GoL & referencia ){
 
 	if ( this != &referencia ){
 
-		if ( mapa != 0 )
-			Destruir();
+		if ( board != 0 )
+			clear();
 
-		alto = referencia.GetAlto();
-		ancho = referencia.GetAncho();
-		mapa = new bool*[alto];
-		for ( int i = 0; i < alto; i++ )
-			mapa[i] = new bool[ancho];
+		height = referencia.get_height();
+		width = referencia.get_width();
+		board = new bool*[height];
+		for ( int i = 0; i < height; i++ )
+			board[i] = new bool[width];
 
-		for ( int i = 0; i < alto; i++ )
-			for ( int j = 0; j < ancho; j++ )
-				Set( i, j, referencia.Get(i,j) );
+		for ( int i = 0; i < height; i++ )
+			for ( int j = 0; j < width; j++ )
+				set( i, j, referencia.get(i,j) );
 
 	}
 
 	return *this;
 }
 
-void Juego::Mostrar(){
+void GoL::print(){
 
-	char vivo = '0', muerto = ' ';
+	char live = '0', dead = ' ';
 
-	for ( int i = 0; i < alto; i++ ){
-		for ( int j = 0; j < ancho; j++ )
-			mapa[i][j] ? cout << vivo : cout << muerto;
+	for ( int i = 0; i < height; i++ ){
+		for ( int j = 0; j < width; j++ )
+			board[i][j] ? cout << live : cout << dead;
 		cout << endl;
 	}
 }
 
-void Juego::Destruir(){
+void GoL::clear(){
 
-	for ( int i = 0; i < alto; ++i ){
-		delete [] mapa[i];/*cout<<i<<endl;*/}
-	delete [] mapa;
+	for ( int i = 0; i < height; ++i ){
+		delete [] board[i];/*cout<<i<<endl;*/}
+	delete [] board;
 
-	alto = ancho = 0;
+	height = width = 0;
 }
